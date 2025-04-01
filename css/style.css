@@ -18,16 +18,17 @@ body {
 }
 
 .logincontainer{
-    width: 350px;
-    height: 500px;
+    width: 400px;
+    height: 550px;
     z-index: 1;
    /* background: rgba(255, 255, 255, 0.1); */
     background: transparent;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     border: 1.75px solid #f7a21e;
-    position: absolute;  /* Add this */
+    position: fixed;  /* Add this */
     left: 10%;  /* Align to the left */
+    right: 10%;
     top: 50%;  /* Center vertically */
     transform: translateY(-50%);  /* Center vertically */
     padding-left: 10px;  /* Optional: add space from the edge */
@@ -44,12 +45,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     border: 1.75px solid #f7a21e;
-    position: absolute;  /* Add this */
-    left: 7.5%;  /* Align to the left */
+    position: fixed;  /* Add this */
+    left: 10%;  /* Align to the left */
+    right: 10%;
     top: 50%;  /* Center vertically */
     transform: translateY(-50%);  /* Center vertically */
     padding-right: 10px;  /* Optional: add space from the edge */
-    padding-top: 20px;
+    padding-top: 35px;
 }
 
 .wrapper {
@@ -65,20 +67,23 @@ form {
 }
 
 label {
-    font-size: 11px;
-    color: white;
+    position: absolute;
+    font-size: 15px;
+    text-align: left;
+    color: rgb(0, 0, 0);
 }
 
 input{
-    padding: 10px;
-    margin-top: 20px;
+    padding: 0px;
+    margin-top: 0px;
     border: none;
     border-radius: 10px;
     background: white;
     border-bottom: 1px solid #fff;
     color: black;
     font-size: 1rem;
-    text-align: center;
+    text-align: right;
+    padding-left: 75px;
     outline: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -125,7 +130,7 @@ a:visited{
 }
 
 #regText{
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -146,7 +151,7 @@ button {
 
 button:hover {
     background: transparent;
-    color: white;
+    color: rgb(212, 129, 34);
     outline: 1px solid #fff;
 }
 
@@ -159,17 +164,17 @@ p {
 
 .wrapper h1 {
     text-align: center;
-    margin-top: 90px;
+    margin-top: 30px;
     margin-bottom: 0px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .wrapper h2 {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 0px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
