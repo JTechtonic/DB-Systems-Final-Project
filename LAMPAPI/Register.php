@@ -49,7 +49,7 @@
 
 			if ($stmt->execute())
 			{
-				returnWithInfo( $universityID, $Email, 'student');
+				returnWithInfo( $conn->insert_id, $universityID, $Email, 'student');
 			}
 			else
 			{
@@ -78,13 +78,13 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $universityID, $email, $user_level )
+	function returnWithInfo( $userID, $universityID, $email, $user_level )
 	{
-		$retValue = '{"user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
+		$retValue = '{"userID": "'. $userID .'", "user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

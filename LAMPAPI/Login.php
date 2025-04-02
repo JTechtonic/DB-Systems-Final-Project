@@ -14,14 +14,14 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT university_id, email, user_level FROM Users WHERE email=? AND password_hash=?");
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE email=? AND password_hash=?");
 		$stmt->bind_param("ss", $Email, $Password);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['university_id'], $row['email'], $row['user_level'] );
+			returnWithInfo( $row['user_id'], $row['university_id'], $row['email'], $row['user_level'] );
 		}
 		else
 		{
@@ -45,13 +45,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"user_level":-1, "email":"", "universityID":"", "error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $universityID, $email, $user_level )
+	function returnWithInfo( $userID, $universityID, $email, $user_level )
 	{
-		$retValue = '{"user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
+		$retValue = '{"userID": "'. $userID . '", "user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

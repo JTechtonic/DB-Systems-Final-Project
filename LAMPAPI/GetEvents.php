@@ -1,8 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 
-	$universityID = $inData['university_id'];
-	$rsoID = $inData['rso_id'];
+	$universityID = $inData['universityID'];
+	$rsoID = $inData['rsoID'];
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -53,7 +53,7 @@
 				$searchResults .= ',';
 
 			$searchCount++;
-			$searchResults .= '{"universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'"}';
+			$searchResults .= '{"eventID": "'. $row['event_id'] .'", "universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'"}';
 		}
 
 		returnWithInfo($searchResults);
