@@ -21,7 +21,24 @@
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['user_id'], $row['university_id'], $row['email'], $row['user_level'] );
+			$userID = $row['user_id'];
+			$universityID = $row['university_id'];
+			$email = $row['email'];
+			$user_level = $row['user_level'];
+
+			// Get RSO memberships
+			$rsoStmt = $conn->prepare("SELECT rso_id FROM RSO_Members WHERE user_id=?");
+			$rsoStmt->bind_param("i", $userID);
+			$rsoStmt->execute();
+			$rsoResult = $rsoStmt->get_result();
+
+			$rsoArray = [];
+			while ($rsoRow = $rsoResult->fetch_assoc()) {
+				$rsoArray[] = $rsoRow['rso_id'];
+			}
+
+			$rsoStmt->close();
+			returnWithInfo($userID, $universityID, $email, $user_level, $rsoArray);
 		}
 		else
 		{
@@ -49,9 +66,17 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $userID, $universityID, $email, $user_level )
+	function returnWithInfo($userID, $universityID, $email, $user_level, $rsoArray)
 	{
-		$retValue = '{"userID": "'. $userID . '", "user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
-		sendResultInfoAsJson( $retValue );
+		$retValue = json_encode([
+			"userID" => $userID,
+			"user_level" => $user_level,
+			"email" => $email,
+			"universityID" => $universityID,
+			"rsoIDs" => $rsoArray,
+			"error" => ""
+		]);
+		
+		sendResultInfoAsJson($retValue);
 	}
 ?>
