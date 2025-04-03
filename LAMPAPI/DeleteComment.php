@@ -12,7 +12,7 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("insert into Comments (event_id, user_id, text, time, date) values (?, ?, ?, CURTIME(), CURDATE())");
+		$stmt = $conn->prepare("delete from Comments where event_id=? and user_id=? and text=?");
 		$stmt->bind_param("iis", $eventID, $userID, $text);
 
 		if ( $stmt->execute() )
@@ -21,7 +21,7 @@
 		}
 		else
 		{
-			returnWithError("Failed to add Comment");
+			returnWithError("Failed to delete Comment");
 		}
 
 		$stmt->close();
@@ -47,7 +47,7 @@
 	
 	function returnWithInfo()
 	{
-		$retValue = '{"message": "Success", "error":""}';
+		$retValue = '{"message": "Deletion success", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

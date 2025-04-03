@@ -1,8 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 
-	$universityID = $inData['universityID'];
-	$rsoID = $inData['rsoID'];
+	$universityID = $inData['universityID']; // int
+	$rsoID = $inData['rsoID']; // int
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )

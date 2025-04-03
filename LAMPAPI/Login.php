@@ -2,8 +2,8 @@
 
 	$inData = getRequestInfo();
 
-	$Email = $inData["email"];
-	$Password = $inData["password"];
+	$Email = $inData["email"]; // string
+	$Password = $inData["password"]; // string
 
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");

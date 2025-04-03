@@ -1,7 +1,7 @@
 <?php
 	$inData = getRequestInfo();
 
-	$eventID = $inData['eventID'];
+	$eventID = $inData['eventID']; // int
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )

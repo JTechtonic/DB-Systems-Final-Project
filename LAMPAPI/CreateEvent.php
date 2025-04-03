@@ -3,22 +3,22 @@
 
 	$inData = getRequestInfo();
 
-	$userID = $inData['userID'];
-	$universityID = $inData['universityID'];
+	$userID = $inData['userID']; // int
+	$universityID = $inData['universityID']; // int
 
-	$locationName = $inData['locationName'];
-	$locationLat = $inData['locationLat'];
-	$locationLong = $inData['locationLong'];
+	$locationName = $inData['locationName']; // string
+	$locationLat = $inData['locationLat']; // float
+	$locationLong = $inData['locationLong']; // float
 
-	$rsoID = $inData['rsoID'];
-	$name = $inData['name'];
-	$category = $inData['category'];
-	$description = $inData['description'];
-	$time = $inData['time'];
-	$date = $inData['date'];
-	$contactPhone = $inData['contactPhone'];
-	$contactEmail = $inData['contactEmail'];
-	$visibility = $inData['visibility'];
+	$rsoID = $inData['rsoID']; // int
+	$name = $inData['name']; // string
+	$category = $inData['category']; // string
+	$description = $inData['description']; // string
+	$time = $inData['time']; // string ('hh:mm:ss')
+	$date = $inData['date']; // string ('yyyy-mm-dd')
+	$contactPhone = $inData['contactPhone']; // string
+ 	$contactEmail = $inData['contactEmail']; // string
+	$visibility = $inData['visibility']; // string ('public', 'private', or 'rso')
 
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");

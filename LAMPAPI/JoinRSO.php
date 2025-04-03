@@ -1,9 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 
-	$eventID = $inData['eventID']; // int
+	$rsoID = $inData['rsoID']; // int
 	$userID = $inData['userID']; // int
-	$text = $inData['text']; // string
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -12,8 +11,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("insert into Comments (event_id, user_id, text, time, date) values (?, ?, ?, CURTIME(), CURDATE())");
-		$stmt->bind_param("iis", $eventID, $userID, $text);
+		$stmt = $conn->prepare("insert into RSO_Members (rso_id, user_id) values (?, ?)");
+		$stmt->bind_param("ii", $rsoID, $userID);
 
 		if ( $stmt->execute() )
 		{
@@ -21,7 +20,7 @@
 		}
 		else
 		{
-			returnWithError("Failed to add Comment");
+			returnWithError("Failed to add into RSO");
 		}
 
 		$stmt->close();

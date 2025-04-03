@@ -2,8 +2,9 @@
 
 	$inData = getRequestInfo();
 
-	$Email = $inData["email"];
-	$Password = $inData["password"];
+	$Email = $inData["email"]; // string
+	$Password = $inData["password"]; // string
+	$userLevel = $inData['userLevel']; // string ('student' or 'admin')
 	
 	$searchCount = 0;
 
@@ -44,12 +45,12 @@
             }
 
             // Register user
-			$stmt = $conn->prepare("insert into Users (university_id, email, password_hash, user_level) VALUES (?, ?, ?, 'student')");
-			$stmt->bind_param("sss", $universityID, $Email, $Password);
+			$stmt = $conn->prepare("insert into Users (university_id, email, password_hash, user_level) VALUES (?, ?, ?, ?)");
+			$stmt->bind_param("ssss", $universityID, $Email, $Password, $userLevel);
 
 			if ($stmt->execute())
 			{
-				returnWithInfo( $conn->insert_id, $universityID, $Email, 'student');
+				returnWithInfo( $conn->insert_id, $universityID, $Email, $userLevel);
 			}
 			else
 			{
