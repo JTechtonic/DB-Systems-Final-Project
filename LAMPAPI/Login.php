@@ -1,30 +1,27 @@
 <?php
 
-
-	//this receives the data from the code.js function, (doLogin())
 	$inData = getRequestInfo();
 
-	$id = 0;
-	$FirstName = "";
-	$LastName = "";
+	$Email = $inData["email"]; // string
+	$Password = $inData["password"]; // string
 
 
-	$conn = new mysqli("localhost", "root", "", "ContactManager");
+	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
+
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-    	//preparing an sql statement
-		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE email=? AND password_hash=?");
+		$stmt->bind_param("ss", $Email, $Password);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
+			returnWithInfo( $row['user_id'], $row['university_id'], $row['email'], $row['user_level'] );
 		}
 		else
 		{
@@ -48,14 +45,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"FirstName":"","LastName":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $FirstName, $LastName, $id )
+	function returnWithInfo( $userID, $universityID, $email, $user_level )
 	{
-		$retValue = '{"id":' . $id . ',"FirstName":"' . $FirstName . '","LastName":"' . $LastName . '","error":""}';
+		$retValue = '{"userID": "'. $userID . '", "user_level":"' . $user_level . '","email":"' . $email . '","universityID":' . $universityID . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-
 ?>
