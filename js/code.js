@@ -104,7 +104,7 @@ function doRegister()
 
 				saveCookie();
 
-				window.location.href = "index.html";
+				window.location.href = "dashboard.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -152,7 +152,7 @@ function readCookie()
 
 	if( userId < 0 )
 	{
-		window.location.href = "index.html";
+		window.location.href = "dashboard.html";
 	}
 	else
 	{

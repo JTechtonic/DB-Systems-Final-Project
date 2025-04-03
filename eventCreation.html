@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Event</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="eventcontainer">
+        <div class="wrapper">
+            <h2 id="newAccount">Create New Event</h2>
+            <div class="eventDiv">
+                <!-- TODO -->
+                <!-- might have to split up name into first & last inputs-->
+                <!-- use email for username? or seperate input for login?-->
+                 <!-- change id's for input based on code.js doRegister() names -->
+                <br><br>
+                <label for="">Location:</label>
+                <input type="text" id ="eventLocation" placeholder="Location">
+                <br><br><br><br>
+                <label for="">Name:</label>
+                <input type="text" id ="eventName" placeholder="Event Name">
+                <br><br><br><br>
+                <label for="">Date</label>
+                <input type="text" id ="eventDate" placeholder="00/00/0000">
+                <br><br><br><br>
+                <label for="">Time</label>
+                <input type="text" id ="eventTime" placeholder="0:00PM">
+                <br><br><br><br>
+                <label for="">Description</label>
+                <input type="text" id ="eventDescription" placeholder="Description of event">
+                <br><br>
+                <p id="regText">Changed Mind? <a href="dashboard.html" id="dashboard">Login</a></p>
+
+                <button type="button" id="eventButton" onclick="createEvent();">Create</button>
+                <br>
+                <span id="eventResult" class="eventResult"></span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!--<button onclick="window.location.href = 'login.html'">Login</button>
+</body>
+<script type="text/javascript" src="js/code.js"></script>
+</html>
