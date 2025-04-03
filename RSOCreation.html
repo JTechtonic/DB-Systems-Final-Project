@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New RSO</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="logincontainer">
+        <div class="wrapper">
+            <h2 id="newRSO">Create New RSO</h2>
+            <div class="loginDiv">
+                <!-- TODO -->
+                <!-- might have to split up name into first & last inputs-->
+                <!-- use email for username? or seperate input for login?-->
+                 <!-- change id's for input based on code.js doRegister() names -->
+                <br><br>
+                <label for="">RSO Name:</label>
+                <input type="text" id ="RSOName" placeholder="RSO name">
+                <br><br>
+                <p id="regText">Changed mind? <a href="dashboard.html" id="login">back</a></p>
+
+                <button type="button" id="RSOButton" onclick="doRegisterRSO();">Register</button>
+                <br>
+                <span id="RSOResult" class="RSOResult"></span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!--<button onclick="window.location.href = 'login.html'">Login</button>
+</body>
+<script type="text/javascript" src="js/code.js"></script>
+</html>

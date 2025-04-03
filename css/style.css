@@ -18,7 +18,7 @@ body {
 }
 
 .logincontainer{
-    width: 400px;
+    width: 500px;
     height: 550px;
     z-index: 1;
    /* background: rgba(255, 255, 255, 0.1); */
@@ -36,7 +36,7 @@ body {
 }
 
 .regcontainer{
-    width: 400px;
+    width: 600px;
     height: 550px;
     position: relative;
     z-index: 1;
@@ -51,6 +51,25 @@ body {
     top: 50%;  /* Center vertically */
     transform: translateY(-50%);  /* Center vertically */
     padding-right: 10px;  /* Optional: add space from the edge */
+    padding-top: 35px;
+}
+
+.eventcontainer{
+    width: 600px;
+    height: 550px;
+    position: relative;
+    z-index: 1;
+   /* background: rgba(255, 255, 255, 0.1); */
+    background: transparent;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1.75px solid #f7a21e;
+    position: fixed;  /* Add this */
+    left: 10%;  /* Align to the left */
+    right: 10%;
+    top: 50%;  /* Center vertically */
+    transform: translateY(-50%);  /* Center vertically */
+    padding-right: 0px;  /* Optional: add space from the edge */
     padding-top: 35px;
 }
 
@@ -69,7 +88,7 @@ form {
 label {
     position: absolute;
     font-size: 15px;
-    text-align: left;
+    left: 25px;
     color: rgb(0, 0, 0);
 }
 
@@ -83,7 +102,7 @@ input{
     color: black;
     font-size: 1rem;
     text-align: right;
-    padding-left: 75px;
+    padding-left: 200px;
     outline: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -204,7 +223,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#loginResult , #registerResult {
+#loginResult , #registerResult, #eventResult, #RSOResult {
     display: block;
     color: #ff0000;
     margin: 10px;
