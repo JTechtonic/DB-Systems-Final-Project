@@ -131,7 +131,87 @@ html, body {
     color: rgb(0, 0, 0);
 }
 
-/* Button styles */
+/* Contact details style */
+.event-details {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+}
+
+.event-details button {
+    margin-top: 20px;
+}
+
+/* Contact list style */
+.RSO-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.RSO-list li {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #000000;
+    color: rgb(0, 0, 0);
+}
+
+/* Contact details style */
+.RSO-avalible {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+}
+
+.RSO-avalible button {
+    margin-top: 20px;
+}
+
+/* Style for the round button */
+.round-button {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    /* Match the dark background color for contrast */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    position: relative;
+    top: -50px;
+    right: -110px;
+}
+
+/* Optional hover effect */
+.round-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#logoutButton {
+    width: 50px;
+    position: right;
+    padding-right: 50px;
+    background: gray;
+    color: white;
+
+}
+
+#RSOPageButton {
+    width: 50px;
+    padding-right: 50px;
+    background: gray;
+    color: white;
+
+}
+
 button {
     background: #000000;
     color: rgb(255, 255, 255);
