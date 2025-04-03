@@ -85,9 +85,3 @@ function populateEvents(events) {
 document.addEventListener("DOMContentLoaded", function() {
     doGetEvents();
 });
-
-function doLogout()
-{
-    sessionStorage.clear();
-    window.location.href = "login.html";
-}

@@ -13,8 +13,8 @@
     <!-- Header -->
     <div class="header">
         <h1>Events</h1>
-        <button type="button" id="RSOPageButton" onclick="toRSO();">RSO Page</button>
-        <button type="button" id="logoutButton" onclick="doLogout();">Logout</button>
+        <button type="button" id="RSOPageButton" onclick="window.location.href = 'RSODashboard.html';">RSO Page</button>
+        <button type="button" id="logoutButton" onclick="sessionStorage.clear(); window.location.href = 'login.html';">Logout</button>
     </div>
 
     <!--
