@@ -148,10 +148,20 @@ html,body {
 }
 
 #logoutButton {
+    width: 50px;
     position: right;
     padding-right: 50px;
-    background: transparent;
+    background: gray;
     color: white;
+
+}
+
+#RSOPageButton {
+    width: 50px;
+    padding-right: 50px;
+    background: gray;
+    color: white;
+
 }
 
 button {
