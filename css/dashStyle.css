@@ -115,8 +115,34 @@ html, body {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Style for clickable event names */
+.event-name {
+    background: none;
+    border: none;
+    color: inherit; /* Inherit color from the parent */
+    font-size: inherit; /* Match the font size of surrounding text */
+    font-family: inherit; /* Match the font style */
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline; /* Optional: Makes it look like a link */
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for individual comments */
+.comment {
+    background: #f4f4f4;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Contact list style */
 .comment-list {
+    height: 590px; /* or any height you prefer */
+    overflow-y: auto;
+    padding-right: 10px; /* Optional: for scroll padding */
     list-style-type: none;
     padding: 0;
     width: 100%;
