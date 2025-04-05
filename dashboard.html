@@ -11,6 +11,11 @@
 </head>
 <body>
 
+    const disableButton = true; //change this value to false and the button will be clickable
+    const button = document.getElementById('checkout-button');
+
+    if (disableButton) button.disabled = "disabled";
+
     <!-- Header -->
     <div class="header">
         <h1>Events</h1>
@@ -27,6 +32,14 @@
     -->
 
     <div class="container">
+
+        <label for=""><strong>Comment:</strong></label>
+        <input type="text" id ="Comment" placeholder="Text" required>
+        
+        <button id="addbutton" onclick="doAddComment(); doPopulate();">Add</button>
+        <button id="createbutton" onclick="toAdminCreate();">Create</button>
+        <span id="addResult"></span>
+
         <!-- Left Column: Dark Color Comment section -->
         <div class="left">
             <h1>Comments:</h1>
@@ -36,15 +49,6 @@
             </ul>
                 
                 <div class="form-container" id="form-container">
-                    <h2>Add Comment</h2>
-
-                    <label for=""><strong>Comment:</strong></label>
-                    <input type="text" id ="Comment" placeholder="Text" required>
-                    
-                    <br>
-                    <button type="button" class="addNewCommentBtn" onclick="doAddComment(); doPopulate();">Add</button>
-                    <br>
-                    <span id="addResult"></span>
                 </div>
         </div>
 
@@ -53,9 +57,10 @@
 
             <h1>Events: <a href="eventCreation.html" id="create">Create</a></h1>
             <div id="event-details" class="event-details"> 
-                
             </div>
         </div>
     </div>
+
+    
 </body>
 </html>

@@ -139,6 +139,11 @@ function toRSO()
 	window.location.href = "RSODashboard.html";
 }
 
+function toAdminCreate()
+{
+	window.location.href = "createAdmin.html";
+}
+
 function toHome()
 {
 	window.location.href = "dashboard.html";
