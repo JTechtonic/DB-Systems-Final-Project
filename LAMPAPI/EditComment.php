@@ -2,6 +2,7 @@
 	$inData = getRequestInfo();
 
 	$commentID = $inData['commentID'];
+	$newText = $inData['newText'];
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -10,8 +11,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("delete from Comments where comment_id=?");
-		$stmt->bind_param("i", $commentID);
+		$stmt = $conn->prepare("update Comments set text=? where comment_id=?");
+		$stmt->bind_param("si", $newText, $commentID);
 
 		if ( $stmt->execute() )
 		{
@@ -19,7 +20,7 @@
 		}
 		else
 		{
-			returnWithError("Failed to delete Comment");
+			returnWithError("Failed to edit Comment");
 		}
 
 		$stmt->close();
@@ -45,7 +46,7 @@
 	
 	function returnWithInfo()
 	{
-		$retValue = '{"message": "Deletion success", "error":""}';
+		$retValue = '{"message": "Edit success", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

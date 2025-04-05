@@ -79,7 +79,7 @@
 				$searchResults .= ',';
 
 			$searchCount++;
-			$searchResults .= '{"eventID": "'. $row['event_id'] .'", "universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'"}';
+			$searchResults .= '{"eventID": "'. $row['event_id'] .'", "universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'", "visibility": "'. $row['visibility'] .'"}';
 		}
 
 		returnWithInfo($searchResults);

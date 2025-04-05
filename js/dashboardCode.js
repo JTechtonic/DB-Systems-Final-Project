@@ -88,7 +88,8 @@ function populateEvents(events) {
             "<p><strong>Description:</strong> " + event.description + "</p>" +
             "<p><strong>Time:</strong> " + event.time + "</p>" +
             "<p><strong>Date:</strong> " + event.date + "</p>" +
-            "<p><strong>Contact:</strong> " + event.phoneNumber + " | " + event.email + "</p>";
+            "<p><strong>Contact:</strong> " + event.phoneNumber + " | " + event.email + "</p>" + 
+            "<p><strong>Visibility:</strong> " + event.visibility + "</p>";
 
         // Append the event details to the event div
         eventDiv.appendChild(eventDetails);
@@ -138,20 +139,29 @@ function populateComments(comments) {
     let commentContainer = document.getElementById("comment-list");
     commentContainer.innerHTML = ""; // Clear previous comments
 
+    const currentUserEmail = sessionStorage.getItem("email");
+
     for (let i = 0; i < comments.length; i++) {
         let comment = comments[i];
-
-        // Create a container for each comment
         let commentDiv = document.createElement("div");
-        commentDiv.className = "comment"; // Make sure to style this in your CSS if needed
+        commentDiv.className = "comment";
 
-        // Build the inner HTML for the comment details
-        commentDiv.innerHTML = 
-            "<p><strong>Comment:</strong> " + comment.text + "</p>" +
-            "<p><strong>Time:</strong> " + comment.time + "</p>" +
-            "<p><strong>Date:</strong> " + comment.date + "</p>";
+        // Build comment content
+        let content = `
+            <p><strong>Email:</strong> ${comment.email}</p>
+            <p><strong>Comment:</strong> <span id="comment-text-${comment.id}">${comment.text}</span></p>
+            <p><strong>Time:</strong> ${comment.time}</p>
+            <p><strong>Date:</strong> ${comment.date}</p>`;
 
-        // Append the comment to the container
+        // If the comment email matches the session email, show edit/delete buttons
+        if (comment.email === currentUserEmail) {
+            content += `
+                <button onclick="editComment(${comment.id})">Edit</button>
+                <button onclick="deleteComment(${comment.id})">Delete</button>
+            `;
+        }
+
+        commentDiv.innerHTML = content;
         commentContainer.appendChild(commentDiv);
     }
 }
@@ -202,6 +212,61 @@ function addComment()
     };
 
     xhr.send(JSON.stringify(commentData));
+}
+
+function editComment(commentID) {
+    const textSpan = document.getElementById(`comment-text-${commentID}`);
+    const currentText = textSpan.innerText;
+    const newText = prompt("Edit your comment:", currentText);
+
+    if (newText !== null && newText.trim() !== "") {
+        let url = urlBase + '/EditComment.' + extension;
+
+        const requestData = {
+            commentID: commentID,
+            newText: newText
+        };
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.error === "") {
+                    doGetComments(sessionStorage.getItem("lastClickedEventID"));
+                } else {
+                    alert("Error editing comment: " + jsonObject.error);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(requestData));
+    }
+}
+
+function deleteComment(commentID) {
+    if (confirm("Are you sure you want to delete this comment?")) {
+        let url = urlBase + '/DeleteComment.' + extension;
+
+        const requestData = {
+            commentID: commentID
+        };
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.error === "") {
+                    doGetComments(sessionStorage.getItem("lastClickedEventID"));
+                } else {
+                    alert("Error deleting comment: " + jsonObject.error);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(requestData));
+    }
 }
 
 // Call the doGetEvents function on page load
