@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/code.js"></script>
     <title>Create New Account</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -11,26 +12,16 @@
         <div class="wrapper">
             <h2 id="newAccount">Create New Account</h2>
             <div class="registerDiv">
-                <!-- TODO -->
-                <!-- might have to split up name into first & last inputs-->
-                <!-- use email for username? or seperate input for login?-->
-                 <!-- change id's for input based on code.js doRegister() names -->
                 <br><br>
-                <label for="">First Name:</label>
-                <input type="text" id ="registerFirstName" placeholder="First">
-                <br><br><br><br>
-                <label for="">Last Name:</label>
-                <input type="text" id ="registerLastName" placeholder="Last">
-                <br><br><br><br>
-                <label for="">Username:</label>
-                <input type="text" id ="registerUsername" placeholder="UserName">
+                <label for="">Email:</label>
+                <input type="text" id ="email" required placeholder="test@email.com">
                 <br><br><br><br>
                 <label for="">Password:</label>
-                <input type="password" id = "registerPassword" placeholder="Password">
+                <input type="password" id ="password" required placeholder="Password">
                 <br><br>
-                <p id="regText">Already registered? <a href="login.html" id="login">Login</a></p>
+                <p id="regText">Already registered? <a href="index.html" id="login">Login</a></p>
 
-                <button type="button" id="registerButton" onclick="doRegister();">Register</button>
+                <button type="button" id="registerButton" onclick="doRegister('student');">Register</button>
                 <br>
                 <span id="registerResult" class="registerResult"></span>
             </div>
@@ -39,5 +30,4 @@
     <br>
     
 </body>
-<script type="text/javascript" src="js/code.js"></script>
 </html>

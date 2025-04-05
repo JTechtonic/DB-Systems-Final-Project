@@ -1,8 +1,8 @@
 <?php
+	include_once('cors.php');
 	$inData = getRequestInfo();
 	
 	$universityID = $inData['universityID']; // int
-	$userID = $inData['userID']; // int
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -11,8 +11,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("select rso_id, name from RSOs where university_id=? and admin_id=? and active=true");
-		$stmt->bind_param("ii", $universityID, $userID);
+		$stmt = $conn->prepare("select rso_id, name, active from RSOs where university_id=?");
+		$stmt->bind_param("i", $universityID);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -25,7 +25,7 @@
 				$rsoArray .= ',';
 			
 			$numRSO++;
-			$rsoArray .= '{"rsoID": '. $row['rso_id'] .', "name": "'. $row['name'] . '"}';
+			$rsoArray .= '{"rsoID": '. $row['rso_id'] .', "name": "'. $row['name'] . '", "active": '. $row['active'] .'}';
 		}
 
 		returnWithInfo($rsoArray);

@@ -1,5 +1,5 @@
 <?php
-
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
 	$Email = $inData["email"]; // string
@@ -38,15 +38,18 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
-            // If the user if from an established university set variable to reflect that
+            // If the user is from an established university, set variable to reflect that
             while ($row = $result->fetch_assoc())
             {
                 $universityID = $row['university_id'];
             }
 
-            // Register user
+            // Hash the password before storing
+            $hashedPassword = password_hash($Password, PASSWORD_BCRYPT);
+
+            // Register user with hashed password
 			$stmt = $conn->prepare("insert into Users (university_id, email, password_hash, user_level) VALUES (?, ?, ?, ?)");
-			$stmt->bind_param("ssss", $universityID, $Email, $Password, $userLevel);
+			$stmt->bind_param("ssss", $universityID, $Email, $hashedPassword, $userLevel);
 
 			if ($stmt->execute())
 			{

@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function doLogout()
 {
 	sessionStorage.clear();
-	window.location.href = "login.html";
+	window.location.href = "index.html";
 }
 
 function toRSO()
@@ -310,5 +310,6 @@ function checkAdmin()
         alert("This function is only available to admins!");
         return;
     }
+    sessionStorage.removeItem("lastClickedEventID");
     window.location.href = 'eventCreation.html';
 }

@@ -1,4 +1,5 @@
 <?php
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
 	$universityID = $inData['universityID']; // int

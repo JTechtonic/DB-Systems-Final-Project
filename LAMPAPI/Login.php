@@ -1,5 +1,5 @@
 <?php
-
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
 	$Email = $inData["email"]; // string
@@ -14,31 +14,38 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Users WHERE email=? AND password_hash=?");
-		$stmt->bind_param("ss", $Email, $Password);
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE email=?");
+		$stmt->bind_param("s", $Email);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		if( $row = $result->fetch_assoc()  )
+		if( $row = $result->fetch_assoc() )
 		{
-			$userID = $row['user_id'];
-			$universityID = $row['university_id'];
-			$email = $row['email'];
-			$user_level = $row['user_level'];
+			$storedPasswordHash = $row['password_hash'];
 
-			// Get RSO memberships
-			$rsoStmt = $conn->prepare("SELECT rso_id FROM RSO_Members WHERE user_id=?");
-			$rsoStmt->bind_param("i", $userID);
-			$rsoStmt->execute();
-			$rsoResult = $rsoStmt->get_result();
+			// Verify the entered password against the stored hash
+			if (password_verify($Password, $storedPasswordHash)) {
+				$userID = $row['user_id'];
+				$universityID = $row['university_id'];
+				$email = $row['email'];
+				$user_level = $row['user_level'];
 
-			$rsoArray = [];
-			while ($rsoRow = $rsoResult->fetch_assoc()) {
-				$rsoArray[] = $rsoRow['rso_id'];
+				// Get RSO memberships
+				$rsoStmt = $conn->prepare("SELECT rso_id FROM RSO_Members WHERE user_id=?");
+				$rsoStmt->bind_param("i", $userID);
+				$rsoStmt->execute();
+				$rsoResult = $rsoStmt->get_result();
+
+				$rsoArray = [];
+				while ($rsoRow = $rsoResult->fetch_assoc()) {
+					$rsoArray[] = $rsoRow['rso_id'];
+				}
+
+				$rsoStmt->close();
+				returnWithInfo($userID, $universityID, $email, $user_level, $rsoArray);
+			} else {
+				returnWithError("Invalid Password");
 			}
-
-			$rsoStmt->close();
-			returnWithInfo($userID, $universityID, $email, $user_level, $rsoArray);
 		}
 		else
 		{

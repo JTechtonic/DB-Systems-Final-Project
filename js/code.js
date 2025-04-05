@@ -64,24 +64,24 @@ function doLogin()
 
 }
 
-// Not ready yet
-/*function doRegister()
+
+function doRegister(role)
 {
-	console.log("doRegister working");
-	let firstName = document.getElementById("registerFirstName").value;
-	let lastName = document.getElementById("registerLastName").value;
-	let login = document.getElementById("registerUsername").value;
-	let password = document.getElementById("registerPassword").value;
+	let email = document.getElementById("email").value;
+	let password = document.getElementById("password").value;
 	//	var hash = md5( password );
 
 	document.getElementById("registerResult").innerHTML = "";
 
-	let tmp = {FirstName:firstName,LastName:lastName,login:login,password:password};
+	let tmp = {
+		email: email,
+		password: password,
+		userLevel: role
+	};
 
-	//	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/AddUser.' + extension;
+	let url = urlBase + '/Register.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -93,19 +93,27 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-
-				if( jsonObject.error !== "" )
+				if (jsonObject.error === "")
 				{
-					document.getElementById("registerResult").innerHTML = jsonObject.error;
+					if (role === 'student')
+					{
+						sessionStorage.setItem("userID", jsonObject.userID);
+						sessionStorage.setItem("userLevel", jsonObject.user_level);
+						sessionStorage.setItem("email", jsonObject.email);
+						sessionStorage.setItem("universityID", jsonObject.universityID);
+						sessionStorage.setItem("rsoIDs", "");
+					}
+					
+					window.alert("Successful Registeration");
+
+					if (role === 'student')
+						window.location.href = "dashboard.html";
+				}
+				else
+				{
+					document.getElementById("registerResult").innerHTML = "<span>Error: " + jsonObject.error +"</span>";
 					return;
 				}
-
-				window.alert("Successful Registeration");
-
-				//saveCookie();
-
-				window.location.href = "dashboard.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -113,38 +121,13 @@ function doLogin()
 	catch(err)
 	{
 		document.getElementById("registerResult").innerHTML = err.message;
-		window.alert(err.message);
 	}
-
-}*/
-
-// function saveCookie() {
-//     let minutes = 30;
-//     let date = new Date();
-//     date.setTime(date.getTime() + minutes * 60 * 1000);
-    
-//     // Encode all values before saving the cookie
-//     let encodedUserID = encodeURIComponent(userID);
-//     let encodedUserLevel = encodeURIComponent(userLevel);
-//     let encodedEmail = encodeURIComponent(email);
-//     let encodedUniversityID = encodeURIComponent(universityID);
-//     let encodedRSOIDs = encodeURIComponent(JSON.stringify(rsoIDs));
-
-//     document.cookie = "userID=" + encodedUserID +
-//                       ";userLevel=" + encodedUserLevel +
-//                       ";email=" + encodedEmail +
-//                       ";universityID=" + encodedUniversityID +
-//                       ";rsoIDs=" + encodedRSOIDs +
-//                       ";expires=" +
-//                       ";path=/";  // Ensure it applies to the whole site
-// }
-
-
+}
 
 function doLogout()
 {
 	sessionStorage.clear();
-	window.location.href = "login.html";
+	window.location.href = "index.html";
 }
 
 function toRSO()
@@ -161,43 +144,3 @@ function toHome()
 {
 	window.location.href = "dashboard.html";
 }
-
-
-// function readCookie() {
-//     let data = document.cookie;
-//     console.log("Cookies:", data);
-
-//     let cookieObj = {};
-//     let cookieArr = data.split(";");
-
-//     for (let i = 0; i < cookieArr.length; i++) {
-//         let thisOne = cookieArr[i].trim();
-//         let tokens = thisOne.split("=");
-//         cookieObj[tokens[0]] = tokens[1];
-//     }
-
-//     // Assign values if they exist
-//     userID = cookieObj["userID"] ? parseInt(cookieObj["userID"]) : -1;
-//     userLevel = cookieObj["userLevel"] || "";
-//     email = cookieObj["email"] || "";
-//     universityID = cookieObj["universityID"] || "";
-
-//     // Decode and parse rsoIDs
-//     if (cookieObj["rsoIDs"]) {
-//         try {
-//             rsoIDs = JSON.parse(decodeURIComponent(cookieObj["rsoIDs"]));
-//         } catch (error) {
-//             console.error("Error parsing rsoIDs:", error);
-//             rsoIDs = [];
-//         }
-//     } else {
-//         rsoIDs = [];
-//     }
-
-//     if (userID < 0) {
-//         window.location.href = "login.html";
-//     } else {
-//         console.log("User ID found:", userID);
-//         return userID;
-//     }
-// }

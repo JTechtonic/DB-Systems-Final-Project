@@ -60,17 +60,15 @@
         </div>
     </div>
     <br>
-    <!--<button onclick="window.location.href = 'login.html'">Login</button>-->
 </body>
 <!-- <script type="text/javascript" src="js/code.js"></script> -->
 <script>
     // Function to populate RSO dropdown
     function loadRSOs() 
     {
-        let url = 'http://159.203.173.251/LAMPAPI/GetRSOs.php';
+        let url = 'http://159.203.173.251/LAMPAPI/GetJoinedRSOs.php';
 
         const requestData = {
-            universityID: sessionStorage.getItem("universityID"),
             userID: sessionStorage.getItem("userID")
         };
 
@@ -94,6 +92,8 @@
         
                     // Populate the dropdown with RSO names from the API response
                     rsoArray.forEach(function(rso) {
+                        if (!rso.active) return;
+                        
                         var option = document.createElement('option');
                         option.value = rso.rsoID; // Use rsoID as the value
                         option.textContent = rso.name; // Use name as the text
