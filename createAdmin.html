@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Admin Account</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="regcontainer">
+        <div class="wrapper">
+            <h2 id="newAccount">Create New Admin</h2>
+            <div class="registerDiv">
+                <!-- TODO -->
+                <!-- might have to split up name into first & last inputs-->
+                <!-- use email for username? or seperate input for login?-->
+                 <!-- change id's for input based on code.js doRegister() names -->
+                <br><br>
+                <label for="">First Name:</label>
+                <input type="text" id ="registerFirstName" placeholder="First">
+                <br><br><br><br>
+                <label for="">Last Name:</label>
+                <input type="text" id ="registerLastName" placeholder="Last">
+                <br><br><br><br>
+                <label for="">Username:</label>
+                <input type="text" id ="registerUsername" placeholder="UserName">
+                <br><br><br><br>
+                <label for="">Password:</label>
+                <input type="password" id = "registerPassword" placeholder="Password">
+                <br><br>
+                <p id="regText">Changed Mind? <a href="dashboard.html" id="login">Login</a></p>
+
+                <button type="button" id="registerButton" onclick="doRegister();">Register</button>
+                <br>
+                <span id="registerResult" class="registerResult"></span>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+</body>
+<script type="text/javascript" src="js/code.js"></script>
+</html>
