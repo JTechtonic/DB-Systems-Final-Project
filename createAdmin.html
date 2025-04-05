@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="js/code.js"></script>
-    <title>Create New Account</title>
+    <title>Create New Admin Account</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="regcontainer">
         <div class="wrapper">
-            <h2 id="newAccount">Create New Account</h2>
+            <h2 id="newAccount">Create New Admin Account</h2>
             <div class="registerDiv">
                 <br><br>
                 <label for="">Email:</label>
@@ -19,9 +19,9 @@
                 <label for="">Password:</label>
                 <input type="password" id ="password" required placeholder="Password">
                 <br><br>
-                <p id="regText">Already registered? <a href="index.html" id="login">Login</a></p>
+                <p id="regText">Changed Mind? <a href="dashboard.html" id="dashboard">Back</a></p>
 
-                <button type="button" id="registerButton" onclick="doRegister('student');">Register</button>
+                <button type="button" id="registerButton" onclick="doRegister('admin');">Register</button>
                 <br>
                 <span id="registerResult" class="registerResult"></span>
             </div>

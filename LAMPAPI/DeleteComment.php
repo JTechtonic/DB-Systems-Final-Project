@@ -1,9 +1,8 @@
 <?php
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
-	$eventID = $inData['eventID']; // int
-	$userID = $inData['userID']; // int
-	$text = $inData['text']; // string
+	$commentID = $inData['commentID'];
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -12,8 +11,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("delete from Comments where event_id=? and user_id=? and text=?");
-		$stmt->bind_param("iis", $eventID, $userID, $text);
+		$stmt = $conn->prepare("delete from Comments where comment_id=?");
+		$stmt->bind_param("i", $commentID);
 
 		if ( $stmt->execute() )
 		{

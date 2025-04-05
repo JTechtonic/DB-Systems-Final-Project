@@ -1,4 +1,5 @@
 <?php
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
 	$eventID = $inData['eventID']; // int
@@ -20,11 +21,16 @@
 
 		while ($row = $comments->fetch_assoc())
 		{
+			$userStmt = $conn->prepare("select email from Users where user_id=?");
+			$userStmt->bind_param("i", $row['user_id']);
+			$userStmt->execute();
+			$email = ($userStmt->get_result()->fetch_assoc())['email'];
+
 			if ($numComments > 0)
 				$commentsArray .= ',';
 			
 			$numComments++;
-			$commentsArray .= '{"text": "'. $row['text'] .'", "time": "'. $row['time'] .'", "date":"'. $row['date'] .'"}';
+			$commentsArray .= '{"id": '. $row['comment_id'] .', "email": "'. $email .'", "text": "'. $row['text'] .'", "time": "'. $row['time'] .'", "date":"'. $row['date'] .'"}';
 		}
 
 		returnWithInfo($eventID, $commentsArray);

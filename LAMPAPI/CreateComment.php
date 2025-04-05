@@ -1,4 +1,6 @@
 <?php
+	include_once('cors.php');
+
 	$inData = getRequestInfo();
 
 	$eventID = $inData['eventID']; // int

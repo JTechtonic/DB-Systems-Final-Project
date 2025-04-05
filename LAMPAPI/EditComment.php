@@ -2,8 +2,8 @@
 	include_once('cors.php');
 	$inData = getRequestInfo();
 
-	$rsoID = $inData['rsoID']; // int
-	$userID = $inData['userID']; // int
+	$commentID = $inData['commentID']; // int
+	$newText = $inData['newText']; // String
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -12,8 +12,8 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("delete from RSO_Members where rso_id=? and user_id=?");
-		$stmt->bind_param("ii", $rsoID, $userID);
+		$stmt = $conn->prepare("update Comments set text=? where comment_id=?");
+		$stmt->bind_param("si", $newText, $commentID);
 
 		if ( $stmt->execute() )
 		{
@@ -21,7 +21,7 @@
 		}
 		else
 		{
-			returnWithError("Failed to leave RSO");
+			returnWithError("Failed to edit Comment");
 		}
 
 		$stmt->close();
@@ -47,7 +47,7 @@
 	
 	function returnWithInfo()
 	{
-		$retValue = '{"message": "Deletion success", "error":""}';
+		$retValue = '{"message": "Edit success", "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New RSO</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="RSOcontainer">
+        <div class="wrapper">
+            <h2 id="newRSO">Create New RSO</h2>
+            <div class="loginDiv">
+                <br><br>
+                <label for="">RSO Name:</label>
+                <input type="text" id ="RSOName" placeholder="RSO name">
+                <br><br>
+                <p id="regText">Changed mind? <a href="RSODashboard.html" id="login">Back</a></p>
+
+                <button type="button" id="RSOButton" onclick="doRegisterRSO();">Create</button>
+                <br>
+                <span id="RSOResult" class="RSOResult"></span>
+            </div>
+        </div>
+    </div>
+    <br>
+
+</body>
+<script>
+    function doRegisterRSO()
+    {
+        let url = 'http://159.203.173.251/LAMPAPI/CreateRSO.php';
+
+        var name = document.getElementById("RSOName").value;
+
+        if (!name || name === "")
+        {
+            alert("You must have a name for your RSO!");
+            return;
+        }
+        
+        // Create an event object
+        var eventData = {
+            universityID: sessionStorage.getItem("universityID"),
+            name: name,
+            userID: sessionStorage.getItem("userID")
+        };
+
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json'); 
+            
+        // Set up the callback for when the response is received
+        xhr.onload = function()
+        {
+            if (xhr.readyState === 4 && xhr.status === 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                if (response.error === "")
+                    document.getElementById('RSOResult').textContent = 'RSO created successfully!';
+                else
+                    alert("RSO Creation Error: " + response.error);
+            }
+        };
+        // Send the request with the event data
+        xhr.send(JSON.stringify(eventData));
+    }
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSO page</title>
+    <script type="text/javascript" src="js/RSODashboard.js"></script>
+    <link rel="stylesheet" href="./css/RSOSytle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>RSOs</h1>
+        <!-- <button type="button" id="dashboardButton" onclick="">Dashboard</button> -->
+        <button type="button" id="RSOPageButton" onclick="window.location.href='dashboard.html';">Events Page</button>
+        <button type="button" id="logoutButton" onclick="sessionStorage.clear(); window.location.href='index.html';">Logout</button>
+    </div>
+
+    <div class="container">
+        <!-- Left Column: Dark Color RSO List -->
+        <div class="left">
+            <h1>Available RSOs:</h1>
+            
+            <ul class="RSO-list" id="RSO-list">
+                <!-- RSO items will populate here -->
+            </ul>
+        </div>
+
+        <!-- Right Column: RSO Creation -->
+        <div class="right">
+            <h1>RSOs IN: <a href="RSOCreation.html" id="create">Create</a></h1>
+            <div id="RSO-avalible" class="RSO-avalible"> 
+                <!-- Populated RSOs will display here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

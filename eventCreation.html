@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Event</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="eventcontainer">
+        <div class="wrapper">
+            <h2 id="newAccount">Create New Event</h2>
+            <div class="eventDiv">
+                <br><br>
+                <label for="eventLocation">Location:</label>
+                <input type="text" id="eventLocation" placeholder="Location">
+                <br><br>
+                <label for="eventLat">Latitude:</label>
+                <input type="text" id="eventLat" placeholder="Latitude">
+                <br><br>
+                <label for="eventLong">Longitude:</label>
+                <input type="text" id="eventLong" placeholder="Longitude">
+                <br><br>
+                <label for="rsoSelection">RSO:</label>
+                <select id="rsoSelection">
+                    <!-- Options will be dynamically populated -->
+                </select>
+                <br><br>
+                <label for="eventCategory">Category:</label>
+                <input type="text" id="eventCategory" placeholder="Event Category">
+                <br><br>
+                <label for="eventPhone">Phone Number:</label>
+                <input type="tel" id="eventPhone" placeholder="Phone Number">
+                <br><br>
+                <label for="visibility">Visibility:</label>
+                <select id="visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="rso">RSO</option>
+                </select>
+                <br><br>
+                <label for="eventName">Name:</label>
+                <input type="text" id="eventName" placeholder="Event Name">
+                <br><br>
+                <label for="eventDate">Date:</label>
+                <input type="text" id="eventDate" placeholder="0000-00-00">
+                <br><br>
+                <label for="eventTime">Time:</label>
+                <input type="text" id="eventTime" placeholder="00:00:00">
+                <br><br>
+                <label for="eventDescription">Description:</label>
+                <input type="text" id="eventDescription" placeholder="Description of event">
+                <br><br>
+                <p id="regText">Changed Mind? <a href="dashboard.html" id="dashboard">Back</a></p>
+
+                <button type="button" id="eventButton" onclick="callEventCreation();">Create</button>
+                <br>
+                <span id="eventResult" class="eventResult"></span>
+            </div>
+        </div>
+    </div>
+    <br>
+</body>
+<!-- <script type="text/javascript" src="js/code.js"></script> -->
+<script>
+    // Function to populate RSO dropdown
+    function loadRSOs() 
+    {
+        let url = 'http://159.203.173.251/LAMPAPI/GetJoinedRSOs.php';
+
+        const requestData = {
+            userID: sessionStorage.getItem("userID")
+        };
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.error === "")
+                {
+                    const rsoArray = jsonObject.rsoArray;
+                    const rsoSelection = document.getElementById('rsoSelection');
+                    rsoSelection.innerHTML = ''; // Clear existing options
+        
+                    // Add a default "Please select" option
+                    const defaultOption = document.createElement('option');
+                    defaultOption.textContent = 'Please select an RSO';
+                    defaultOption.value = '';
+                    rsoSelection.appendChild(defaultOption);
+        
+                    // Populate the dropdown with RSO names from the API response
+                    rsoArray.forEach(function(rso) {
+                        if (!rso.active) return;
+                        
+                        var option = document.createElement('option');
+                        option.value = rso.rsoID; // Use rsoID as the value
+                        option.textContent = rso.name; // Use name as the text
+                        rsoSelection.appendChild(option);
+                    });
+                }
+                else
+                {
+                    console.error("Error grabbing RSOs: " + jsonObject.error);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(requestData));
+    }
+
+    // Function to create event
+    function callEventCreation() 
+    {
+        let url = 'http://159.203.173.251/LAMPAPI/CreateEvent.php';
+
+        // Collect data from the form inputs
+        var userID = sessionStorage.getItem("userID");
+        var universityID = sessionStorage.getItem("universityID");
+        var eventLocation = document.getElementById('eventLocation').value;
+        var eventLat = parseFloat(document.getElementById('eventLat').value);
+        var eventLong = parseFloat(document.getElementById('eventLong').value);
+        var rsoSelection = document.getElementById('rsoSelection').value ? parseInt(document.getElementById('rsoSelection').value) : null;
+        var eventName = document.getElementById('eventName').value;
+        var eventCategory = document.getElementById('eventCategory').value;
+        var eventDescription = document.getElementById('eventDescription').value;
+        var eventTime = document.getElementById('eventTime').value;
+        var eventDate = document.getElementById('eventDate').value;
+        var eventPhone = document.getElementById('eventPhone').value;
+        var eventEmail = sessionStorage.getItem("email");
+        var visibility = document.getElementById('visibility').value;
+
+        // Database reasons
+        if (visibility !== 'rso')
+            rsoSelection = null;
+        
+        // Create an event object
+        var eventData = {
+            userID: userID,
+            universityID: universityID,
+            locationName: eventLocation,
+            locationLat: eventLat,
+            locationLong: eventLong,
+            rsoID: rsoSelection,
+            name: eventName,
+            category: eventCategory,
+            description: eventDescription,
+            time: eventTime,
+            date: eventDate,
+            contactPhone: eventPhone,
+            contactEmail: eventEmail,
+            visibility: visibility
+        };
+
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json'); 
+            
+        // Set up the callback for when the response is received
+        xhr.onload = function()
+        {
+            if (xhr.readyState === 4 && xhr.status === 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                if (response.error === "")
+                    document.getElementById('eventResult').textContent = 'Event created successfully!';
+                else
+                    alert("Event Creation Error: " + response.error);
+            }
+        };
+        // Send the request with the event data
+        xhr.send(JSON.stringify(eventData));
+    }
+
+    // Call loadRSOs when the page loads
+    window.onload = loadRSOs;
+</script>
+</html>

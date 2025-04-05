@@ -1,7 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/code.js"></script>
+    <title>Login page</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body> 
+    <div class="logincontainer">
+        <div class="wrapper">
+            <h1>Login</h1>
+                <div class="loginDiv">
+                    <br><br>
+                    <label for="">Email:</label>
+                    <input type="text" id="loginEmail" name="email" required placeholder="email">
+                    <br><br><br><br>
+                    <label for="">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="Password">
+                    <br><br><br><br>
 
-<html>
-	<body>
-		<h1>Test</h1>
-	</body>
+                    <p id="regText">Don't have an account? <a href="register.html" id="register">Register</a></p>
+
+                    <button type="button" id="loginButton" onclick="doLogin();">Login</button>
+                    <br>
+                    <p id="loginResult" class="loginResult"></p>
+                </div>
+        </div>
+    </div>
+</body>
 </html>

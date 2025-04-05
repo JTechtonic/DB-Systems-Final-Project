@@ -1,8 +1,9 @@
 <?php
+	include_once('cors.php');
 	$inData = getRequestInfo();
 
 	$universityID = $inData['universityID']; // int
-	$rsoID = $inData['rsoID']; // int
+	$rsoIDs = $inData['rsoIDs']; // array of ints
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )
@@ -11,9 +12,35 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("select * from Events where (visibility = 'public' or (university_id = ? and (rso_id = ? or rso_id is null))) and approval_status = true");
-		$stmt->bind_param("ii", $universityID, $rsoID);
-		$stmt->execute();
+		// Check if the rsoIDs array is empty
+        if (empty($rsoIDs))
+		{
+            // If empty, skip the rso_id filter in the SQL query
+            $sql = "SELECT * FROM Events 
+                    WHERE (visibility = 'public' OR (university_id = ? AND rso_id IS NULL)) 
+                    AND approval_status = true";
+					
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $universityID);
+        }
+		else
+		{
+            // Prepare placeholders for rsoIDs array
+            $rsoPlaceholders = implode(',', array_fill(0, count($rsoIDs), '?'));
+
+            // Prepare SQL query with university and rso filter
+            $sql = "SELECT * FROM Events 
+                    WHERE (visibility = 'public' OR (university_id = ? AND (rso_id IN ($rsoPlaceholders) OR rso_id IS NULL))) 
+                    AND approval_status = true";
+
+            $stmt = $conn->prepare($sql);
+            
+            // Bind parameters dynamically
+            $paramTypes = str_repeat('i', count($rsoIDs) + 1); // 'i' for each integer
+            $stmt->bind_param($paramTypes, $universityID, ...$rsoIDs);
+        }
+
+        $stmt->execute();
 		$result = $stmt->get_result();
 
 		$searchResults = "";
@@ -53,7 +80,7 @@
 				$searchResults .= ',';
 
 			$searchCount++;
-			$searchResults .= '{"eventID": "'. $row['event_id'] .'", "universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'"}';
+			$searchResults .= '{"eventID": "'. $row['event_id'] .'", "universityName" : "'. $universityName .'", "rsoName" : "'. $rsoName .'", "locationName" : "'. $locationName .'", "eventName" : "'. $row['name'] .'", "category" : "'. $row['category'] .'", "description" : "'. $row['description'] .'", "time" : "'. $row['time'] .'", "date" : "'. $row['date'] .'", "phoneNumber" : "'. $row['contact_phone'] .'", "email" : "'. $row['contact_email'] .'", "visibility": "'. $row['visibility'] .'"}';
 		}
 
 		returnWithInfo($searchResults);
