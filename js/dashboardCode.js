@@ -291,3 +291,24 @@ function toHome()
     sessionStorage.removeItem("lastClickedEventID");
 	window.location.href = "dashboard.html";
 }
+
+function toAdminCreate()
+{
+    if (sessionStorage.getItem("userLevel") !== 'super_admin')
+    {
+        alert("This function is only available to the super admin!");
+        return;
+    }
+    sessionStorage.removeItem("lastClickedEventID");
+	window.location.href = "createAdmin.html";
+}
+
+function checkAdmin()
+{
+    if (sessionStorage.getItem("userLevel") === 'student')
+    {
+        alert("This function is only available to admins!");
+        return;
+    }
+    window.location.href = 'eventCreation.html';
+}

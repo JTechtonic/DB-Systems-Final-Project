@@ -10,14 +10,16 @@
 </head>
 <body>
 
+    <!--
     const disableButton = true; //change this value to false and the button will be clickable
     const button = document.getElementById('checkout-button');
 
     if (disableButton) button.disabled = "disabled";
-
+    -->
     <!-- Header -->
     <div class="header">
         <h1>Events</h1>
+        <button id="createbutton" onclick="toAdminCreate();">Create Admin</button>
         <button type="button" id="RSOPageButton" onclick="toRSO();">RSO Page</button>
         <button type="button" id="logoutButton" onclick="doLogout();">Logout</button>
     </div>
@@ -31,13 +33,14 @@
     -->
 
     <div class="container">
-
+        <!--
         <label for=""><strong>Comment:</strong></label>
         <input type="text" id ="Comment" placeholder="Text" required>
         
         <button id="addbutton" onclick="doAddComment(); doPopulate();">Add</button>
-        <button id="createbutton" onclick="toAdminCreate();">Create</button>
-        <span id="addResult"></span>
+        -->
+        
+        <!-- <span id="addResult"></span> -->
 
         <!-- Left Column: Dark Color Comment section -->
         <div class="left">
@@ -57,7 +60,10 @@
         <!-- Right Column: Lighter Color Events -->
         <div class="right">
 
-            <h1>Events: <a href="eventCreation.html" id="create">Create</a></h1>
+            <h1>
+                Events:
+                <button id="create" onclick="checkAdmin();">Create</button>
+            </h1>
             <div id="event-details" class="event-details"> 
             </div>
         </div>

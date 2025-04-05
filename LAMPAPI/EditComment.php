@@ -1,8 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 
-	$commentID = $inData['commentID'];
-	$newText = $inData['newText'];
+	$commentID = $inData['commentID']; // int
+	$newText = $inData['newText']; // String
 
 	$conn = new mysqli("localhost", "developer", "jSn3ir6qAvNzffJ", "mainDB");
 	if( $conn->connect_error )

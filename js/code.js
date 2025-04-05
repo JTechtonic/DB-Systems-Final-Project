@@ -139,6 +139,8 @@ function doLogin()
 //                       ";path=/";  // Ensure it applies to the whole site
 // }
 
+
+
 function doLogout()
 {
 	sessionStorage.clear();
