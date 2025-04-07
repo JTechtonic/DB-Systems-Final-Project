@@ -22,6 +22,10 @@
 			$stmt = $conn->prepare("insert into RSO_Members (rso_id, user_id) values (?, ?)");
 			$stmt->bind_param("ii", $rsoID, $userID);
 			$stmt->execute();
+
+			$stmt = $conn->prepare("Update Users set user_level='admin' where user_id=?");
+			$stmt->bind_param("i", $userID);
+			$stmt->execute();
 			returnWithInfo();
 		}
 		else
